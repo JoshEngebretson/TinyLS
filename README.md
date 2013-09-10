@@ -11,10 +11,6 @@ For example:
 ```as3
 package
 {
-    // force a reference to system package for linker
-    // we should not need to do this and it will be fixed
-    import system.Math;
-
     public class HelloTinyLoomScript
     {
         public static function main()
