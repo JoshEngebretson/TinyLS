@@ -1,8 +1,10 @@
 ### TinyLoomScript (WIP)
 
-An extremely lean stack for embedding LoomScript
+An **extremely lean** stack for embedding LoomScript (as you might embed Lua, but will all the LoomScript goodies)
 
-Compiles on OSX currently and generates tinylsc (compiler) and tinyrun (executes a Main.loom with a static main entry point)
+Compiles on OSX currently and doesn't yet support JIT compilation
+
+**rake build:osx** generates tinylsc (compiler) and tinyrun (executes a Main.loom with a static main entry point)
 
 For example:
 
