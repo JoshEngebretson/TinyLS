@@ -80,9 +80,33 @@ endif()
 
 add_library(tinyloomscript STATIC ${JANSSON_SRC} ${LUA_SRC} ${SEATEST_SRC} ${COMMON_SRC} ${SCRIPT_SRC})
 
-add_executable(tinylsc tinylsc/main.cpp)
+#tinylsc 
+
+add_executable(tinylsc loom/tinylsc/main.cpp)
 
 target_link_libraries(tinylsc tinyloomscript -lz -lpthread)
+
+get_target_property(TINYLSCBIN tinylsc LOCATION)
+
+add_custom_command(TARGET tinylsc
+    POST_BUILD
+    COMMAND mkdir -p ${CMAKE_SOURCE_DIR}/artifacts
+    COMMAND cp ${TINYLSCBIN} ${CMAKE_SOURCE_DIR}/artifacts/tinylsc
+)
+
+# tinyrun
+
+add_executable(tinyrun loom/tinyrun/main.cpp)
+
+target_link_libraries(tinyrun tinyloomscript -lz -lpthread)
+
+get_target_property(TINYRUNBIN tinyrun LOCATION)
+
+add_custom_command(TARGET tinyrun
+    POST_BUILD
+    COMMAND mkdir -p ${CMAKE_SOURCE_DIR}/artifacts
+    COMMAND cp ${TINYRUNBIN} ${CMAKE_SOURCE_DIR}/artifacts/tinyrun
+)
 
 
 
