@@ -6,6 +6,7 @@ cmake_minimum_required (VERSION 2.8.6)
 
 include_directories( 
     ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/loom/common
     loom/vendor/jansson
     loom/vendor/lua/src
     loom/vendor/seatest
@@ -20,7 +21,7 @@ file (GLOB LUA_SRC loom/vendor/lua/src/*.c)
 #seatest (we'll add LuaJIT later)
 set (SEATEST_SRC loom/vendor/seatest/seatest.c)
 
-# common files
+# Common files
 file (GLOB COMMON_SRC 
     loom/common/xml/*.cpp 
     loom/common/utils/*.cpp 
@@ -33,5 +34,45 @@ if (APPLE)
     set (COMMON_SRC ${COMMON_SRC} loom/common/platform/platformFileIOS.m)        
 endif(APPLE)
 
-add_library(TinyLoomScript ${JANSSON_SRC} ${LUA_SRC} ${SEATEST_SRC} ${COMMON_SRC})
+# Script Files
+
+# Define source files
+file (GLOB SCRIPT_SRC 
+    loom/script/common/*.cpp 
+    loom/script/native/*.cpp 
+    loom/script/reflection/*.cpp 
+    loom/script/runtime/*.cpp 
+    loom/script/serialize/*.cpp 
+    loom/script/native/core/*.cpp 
+    loom/script/native/core/system/*.cpp
+    loom/script/native/core/test/*.cpp 
+    loom/script/native/core/system/Debugger/*.cpp
+    loom/script/native/core/system/Metrics/*.cpp 
+    loom/script/native/core/system/Reflection/*.cpp 
+    loom/script/native/core/system/Socket/*.cpp 
+    loom/script/native/core/system/Socket/*.c 
+    loom/script/native/core/system/XML/*.cpp 
+    loom/script/native/core/system/Platform/*.cpp
+    loom/script/native/core/system/Utils/*.cpp 
+    loom/script/native/core/assets/*.cpp )
+                     
+                     
+if (MSVC OR APPLE OR LINUX)
+    if (NOT LOOM_BUILD_IOS)                  
+        file (GLOB COMPILER_SRC loom/script/compiler/*.cpp loom/script/compiler/builders/*.cpp loom/script/native/core/compiler/*.cpp)
+        set (SCRIPT_SRC ${SCRIPT_SRC} ${COMPILER_SRC} )
+    endif()
+endif()
+
+                                
+if (MSVC)                                
+    list(REMOVE_ITEM SCRIPT_SRC ${CMAKE_CURRENT_SOURCE_DIR}/loom/script/native/core/system/Socket/usocket.c)
+    list(REMOVE_ITEM SCRIPT_SRC ${CMAKE_CURRENT_SOURCE_DIR}/loom/script/native/core/system/Socket/unix.c)
+else() 
+    list(REMOVE_ITEM SCRIPT_SRC ${CMAKE_CURRENT_SOURCE_DIR}/loom/script/native/core/system/Socket/wsocket.c)
+endif()                  
+
+
+
+add_library(TinyLoomScript ${JANSSON_SRC} ${LUA_SRC} ${SEATEST_SRC} ${COMMON_SRC} ${SCRIPT_SRC})
 

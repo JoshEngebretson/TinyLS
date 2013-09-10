@@ -24,7 +24,6 @@
 #include "loom/common/core/log.h"
 #include "loom/common/core/stringTable.h"
 #include "loom/common/platform/platformIO.h"
-#include "loom/common/platform/platformDisplay.h"
 #include "loom/common/platform/platformThread.h"
 
 #if LOOM_PLATFORM == LOOM_PLATFORM_ANDROID

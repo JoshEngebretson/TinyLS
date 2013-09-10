@@ -345,7 +345,6 @@ void loom_thread_setDebugName(const char *name)
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "loom/common/platform/platformDisplay.h"
 #include "loom/common/core/performance.h"
 
 #include <mach/mach_init.h>

@@ -22,7 +22,6 @@
 #include <string.h>
 #include <stdio.h>
 #include "platformFile.h"
-#include "platformDisplay.h"
 #include "loom/common/platform/platform.h"
 
 const char *platform_getFolderDelimiter();
