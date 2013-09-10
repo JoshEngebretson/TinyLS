@@ -2,7 +2,7 @@
 
 An **extremely lean** stack for embedding LoomScript (as you might embed Lua, but will all the LoomScript/AS3 goodies)
 
-Forum Post: http://loomsdk.com/forums/loom-with-loomscript/topics/tinyloomscript-embedded-loomscript-lean-mean
+Forum Post: https://loomsdk.com/forums/loom-with-native-c/topics/tinyloomscript-embedded-loomscript
 
 Compiles on OSX currently and doesn't yet support JIT compilation
 
