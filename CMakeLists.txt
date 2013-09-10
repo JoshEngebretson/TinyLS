@@ -4,6 +4,8 @@ project (TinyLoomScript)
 # Set minimum version
 cmake_minimum_required (VERSION 2.8.6)
 
+add_definitions(-DLOOM_DISABLE_JEMALLOC -DHAVE_CXA_DEMANGLE -DNPERFORMANCE -DNTELEMETRY)
+
 include_directories( 
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/loom/common
@@ -32,6 +34,9 @@ file (GLOB COMMON_SRC
 
 if (APPLE)
     set (COMMON_SRC ${COMMON_SRC} loom/common/platform/platformFileIOS.m)        
+    set(CMAKE_EXE_LINKER_FLAGS "-framework IOKit -framework Carbon -framework Foundation -lz -framework QuartzCore -lxml2")
+    set(CMAKE_OSX_ARCHITECTURES "i386")
+    set(CMAKE_OSX_DEPLOYMENT_TARGET 10.7)
 endif(APPLE)
 
 # Script Files
@@ -73,6 +78,11 @@ else()
 endif()                  
 
 
+add_library(tinyloomscript STATIC ${JANSSON_SRC} ${LUA_SRC} ${SEATEST_SRC} ${COMMON_SRC} ${SCRIPT_SRC})
 
-add_library(TinyLoomScript ${JANSSON_SRC} ${LUA_SRC} ${SEATEST_SRC} ${COMMON_SRC} ${SCRIPT_SRC})
+add_executable(tinylsc tinylsc/main.cpp)
+
+target_link_libraries(tinylsc tinyloomscript -lz -lpthread)
+
+
 
