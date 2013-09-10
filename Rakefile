@@ -52,12 +52,8 @@ desc "Builds OS X"
       end
       
       Dir.chdir("script") do
-         sh "../artifacts/tinylsc Main.build"
+         sh "../artifacts/tinylsc --symbols --verbose Main.build"
       end
-
-
-      # copy libs
-      FileUtils.cp_r("script/libs", "artifacts/")
 
       #copy bin
       FileUtils.cp_r("script/bin", "artifacts/")

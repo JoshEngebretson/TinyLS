@@ -28,13 +28,6 @@ public enum PlatformType {
     LINUX = 5
 }
 
-public enum DisplayProfile {
-    DESKTOP,
-    SMALL,
-    NORMAL,
-    LARGE
-}
-
 class Platform {
 
    /*!
@@ -54,25 +47,6 @@ class Platform {
    */
    public static native function getPlatform():PlatformType;
 
-   /*!
-    Get the device category on which we are currently running. This is the size
-    of the screen, not pixel density - see getDPI() for that.
-
-    @see DisplayProfile
-   */
-   public static native function getProfile():DisplayProfile;
-
-   /*!
-    Return a best guess for the DPI of the current display.
-   */
-   public native static function getDPI():Number;
-
-   /*!
-    Override the DPI reported by getDPI; this persists across restarts.
-    */
-   public native static function forceDPI(value:Number):void;
-
-   public native static function isForcingDPI():Boolean;
 }
 
 }
