@@ -1,4 +1,4 @@
-### TinyLoomScript (WIP)
+### TinyLS (WIP)
 
 An **extremely lean** stack for embedding LoomScript (as you might embed Lua, but will all the LoomScript/AS3 goodies)
 
