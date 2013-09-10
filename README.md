@@ -1,6 +1,6 @@
 ### TinyLoomScript (WIP)
 
-An **extremely lean** stack for embedding LoomScript (as you might embed Lua, but will all the LoomScript goodies)
+An **extremely lean** stack for embedding LoomScript (as you might embed Lua, but will all the LoomScript/AS3 goodies)
 
 Forum Post: http://loomsdk.com/forums/loom-with-loomscript/topics/tinyloomscript-embedded-loomscript-lean-mean
 
