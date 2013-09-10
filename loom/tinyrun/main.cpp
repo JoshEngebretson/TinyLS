@@ -54,27 +54,15 @@ static void executeAssembly()
     lmAssert(execState, "null execState");
     execAssembly = execState->loadExecutableAssembly(assemblyPath.c_str(), true);
 
-    // look for a class derived from LoomApplication in the main assembly
-    Type *loomAppType = execState->getType("system.application.ConsoleApplication");
-    if (loomAppType)
+    // first see if we have a static main
+    MethodInfo *smain = execAssembly->getStaticMethodInfo("main");
+    if (smain)
     {
-        utArray<Type *> types;
-        execAssembly->getTypes(types);
-        for (UTsize i = 0; i < types.size(); i++)
-        {
-            Type *appType = types.at(i);
-            if (appType->isDerivedFrom(loomAppType))
-            {
-                //lmLog(applicationLogGroup, "Instantiating Application: %s", appType->getName());
-                int top = lua_gettop(execState->VM());
-                lsr_createinstance(execState->VM(), appType);
-                lualoom_getmember(execState->VM(), -1, "initialize");
-                lua_call(execState->VM(), 0, 0);
-                lua_settop(execState->VM(), top);
-                break;
-            }
-        }
+        //GO!
+        smain->invoke(NULL, 0);
     }
+
+
 }
 
 
